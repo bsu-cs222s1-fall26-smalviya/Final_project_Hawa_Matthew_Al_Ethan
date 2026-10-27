@@ -1,12 +1,12 @@
 # Movie Rating App
 
-# About Our Project
+About Our Project
 We are making an app that helps people choose what movies to watch. Instead of checking different websites for ratings, users can search for a movie and see ratings from different websites in one place. The app will also show the average rating.
 
-# Iteration 1
+ Iteration 1
 For our first iteration, we are working on the movie search and rating features. We divided the work between the four of us.
 
-## Who is doing what
+ Who is doing what
 
 Member 1: Movie Search
 - Work on searching for movies by title.
