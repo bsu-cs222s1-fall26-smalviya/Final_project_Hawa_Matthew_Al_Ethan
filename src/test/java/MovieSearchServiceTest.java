@@ -29,4 +29,28 @@ public class MovieSearchServiceTest {
         assertThrows(IllegalArgumentException.class,
                 () -> search.prepareSearch(null));
     }
+
+    @Test
+    void testMovieTitleWithNumbers() {
+        assertEquals("Spider-Man+2",
+                search.prepareSearch("Spider-Man 2"));
+    }
+
+    @Test
+    void testMovieTitleWithSpecialCharacters() {
+        assertEquals("Fast+%26+Furious",
+                search.prepareSearch("Fast & Furious"));
+    }
+
+    @Test
+    void testOnlySpaces() {
+        assertThrows(IllegalArgumentException.class,
+                () -> search.prepareSearch("   "));
+    }
+
+    @Test
+    void testLowercaseMovieTitle() {
+        assertEquals("avatar",
+                search.prepareSearch("avatar"));
+    }
 }
