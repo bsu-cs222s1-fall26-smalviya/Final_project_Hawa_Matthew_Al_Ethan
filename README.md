@@ -9,15 +9,15 @@ For our first iteration, we are working on the movie search and rating features.
 
  Who is doing what
 
-Member 1: Movie Search
+ Al: Movie Search
 - Work on searching for movies by title.
 - Make sure the search works and handles movies that aren't found.
 
-Member 2: Movie Ratings
+Member 2: Movie Ratings (API)
 - Work on getting movie ratings from different websites using an API.
 - Make sure the ratings show up correctly.
 
-Member 3: Average Rating
+ Hawa: Average Rating
 - Work on calculating the average rating.
 - Make sure ratings are on the same scale before calculating the average.
 
