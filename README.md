@@ -13,7 +13,7 @@ For our first iteration, we are working on the movie search and rating features.
 - Work on searching for movies by title.
 - Make sure the search works and handles movies that aren't found.
 
-Member 2: Movie Ratings (API)
+Ethan: Movie Ratings (API)
 - Work on getting movie ratings from different websites using an API.
 - Make sure the ratings show up correctly.
 
