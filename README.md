@@ -21,7 +21,7 @@ Ethan: Movie Ratings (API)
 - Work on calculating the average rating.
 - Make sure ratings are on the same scale before calculating the average.
 
-Member 4: App Interface
+Matthew: App Interface
 - Work on how the app looks.
 - Add the search bar and display the movie ratings and average.
 - Help put everything together.
