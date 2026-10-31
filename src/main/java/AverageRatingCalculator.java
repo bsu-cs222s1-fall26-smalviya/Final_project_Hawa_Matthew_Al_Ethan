@@ -42,4 +42,30 @@ public class AverageRatingCalculator {
         // IMDb ratings are out of 10
         return Double.parseDouble(rating) * 10;
     }
+
+    // Gets the movie ratings and calculates their average
+    public double getMovieAverage(String movieTitle) throws Exception {
+
+        MovieRatingAPI api = new MovieRatingAPI();
+        List<Double> ratings = new java.util.ArrayList<>();
+
+        String imdb = api.getIMDbRating(movieTitle);
+        String rottenTomatoes = api.getRottenTomatoesRating(movieTitle);
+        String metacritic = api.getMetacriticRating(movieTitle);
+
+        if (!imdb.equals("N/A")) {
+            ratings.add(convertRating(imdb));
+        }
+
+        if (!rottenTomatoes.equals("N/A")) {
+            ratings.add(convertRating(rottenTomatoes));
+        }
+
+        if (!metacritic.equals("N/A")) {
+            ratings.add(convertRating(metacritic));
+        }
+
+        return calculateAverage(ratings);
+    }
+
 }

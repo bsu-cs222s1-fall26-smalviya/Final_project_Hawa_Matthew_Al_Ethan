@@ -47,5 +47,16 @@ public class AverageRatingCalculatorTest {
             calculator.calculateAverage(List.of());
         });
     }
+
+    // Tests the average rating using movie data from the API
+    @Test
+    public void testMovieAverage() throws Exception {
+        AverageRatingCalculator calculator = new AverageRatingCalculator();
+
+        double average = calculator.getMovieAverage("Shrek");
+
+        assertTrue(average >= 0 && average <= 100);
+    }
+
 }
 
