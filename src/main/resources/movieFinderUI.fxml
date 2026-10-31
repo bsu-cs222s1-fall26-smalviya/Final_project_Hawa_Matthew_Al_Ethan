@@ -15,7 +15,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="443.0" prefWidth="590.0" style="-fx-background-color: #9370DB;" stylesheets="@../../../../../../styles.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.bsu.cs222.MovieFinderController">
    <bottom>
-      <TableView style="-fx-background-color: #9370DB;" BorderPane.alignment="CENTER">
+      <TableView style="-fx-background-color: #9370DB;" BorderPane.alignment="CENTER" visible = "false" managed = "false">
         <columns>
           <TableColumn prefWidth="294.0" style="-fx-background-color: #000000;" text="Movie" />
           <TableColumn prefWidth="294.0" style="-fx-background-color: #000000;" text="Average Rating" />
