@@ -1,3 +1,5 @@
+package edu.bsu.cs222;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -6,25 +8,26 @@ import java.net.http.HttpResponse;
 
 public class MovieRatingAPI {
 
-    private final String apiKey = "8e8f2632";
-
     // Gets movie information from the OMDb API
     public String getMovie(String movieTitle) throws IOException, InterruptedException {
 
+        String apiKey = "8e8f2632";
         String url = "https://www.omdbapi.com/?t="
                 + movieTitle.replace(" ", "+")
                 + "&apikey=" + apiKey;
 
-        HttpClient client = HttpClient.newHttpClient();
+        HttpResponse<String> response;
+        try (HttpClient client = HttpClient.newHttpClient()) {
 
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(url))
-                .build();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .build();
 
-        HttpResponse<String> response = client.send(
-                request,
-                HttpResponse.BodyHandlers.ofString()
-        );
+            response = client.send(
+                    request,
+                    HttpResponse.BodyHandlers.ofString()
+            );
+        }
 
         return response.body();
     }
@@ -45,6 +48,7 @@ public class MovieRatingAPI {
 
         return movie.substring(ratingStart, ratingEnd);
     }
+
     // Gets the Rotten Tomatoes rating from the movie information
     public String getRottenTomatoesRating(String movieTitle) throws Exception {
 
@@ -63,6 +67,7 @@ public class MovieRatingAPI {
 
         return movie.substring(valueStart, valueEnd);
     }
+
     // Gets the Metacritic rating from the movie information
     public String getMetacriticRating(String movieTitle) throws Exception {
 
