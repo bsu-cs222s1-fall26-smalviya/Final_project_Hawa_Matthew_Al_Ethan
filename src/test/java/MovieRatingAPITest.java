@@ -25,7 +25,8 @@ public class MovieRatingAPITest {
 
         String rating = api.getIMDbRating("Shrek");
 
-        assertNotNull(rating);
+        System.out.println("IMDb rating: " + rating);
+        assertTrue(rating.matches("\\d+(\\.\\d+)?"));
     }
     @Test
     public void getsRottenTomatoesRating() throws Exception {
@@ -33,7 +34,9 @@ public class MovieRatingAPITest {
 
         String rating = api.getRottenTomatoesRating("Shrek");
 
-        assertNotNull(rating);
+        System.out.println("Rotten Tomatoes: " + rating);
+        assertTrue(rating.matches("\\d+%"));
+
     }
     @Test
     public void getsMetacriticRating() throws Exception {
@@ -41,6 +44,8 @@ public class MovieRatingAPITest {
 
         String rating = api.getMetacriticRating("Shrek");
 
-        assertNotNull(rating);
+        System.out.println("Metacritic: " + rating);
+        assertTrue(rating.matches("\\d+/100"));
+
     }
 }
