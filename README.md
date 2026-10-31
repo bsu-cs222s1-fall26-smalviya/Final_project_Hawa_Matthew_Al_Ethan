@@ -13,7 +13,7 @@ For our first iteration, we are working on the movie search and rating features.
 - Work on searching for movies by title.
 - Make sure the search works and handles movies that aren't found.
 
-Member 2: Movie Ratings (API)
+Ethan: Movie Ratings (API)
 - Work on getting movie ratings from different websites using an API.
 - Make sure the ratings show up correctly.
 
@@ -21,7 +21,7 @@ Member 2: Movie Ratings (API)
 - Work on calculating the average rating.
 - Make sure ratings are on the same scale before calculating the average.
 
-Member 4: App Interface
+Matthew: App Interface
 - Work on how the app looks.
 - Add the search bar and display the movie ratings and average.
 - Help put everything together.
