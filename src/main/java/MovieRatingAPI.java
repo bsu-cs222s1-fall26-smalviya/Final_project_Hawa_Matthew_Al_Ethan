@@ -8,20 +8,17 @@ public class MovieRatingAPI {
 
     private final String apiKey = "8e8f2632";
 
-    public String getApiKey() {
-        return apiKey;
-    }
+    // Gets movie information from the OMDb API
     public String getMovie(String movieTitle) throws IOException, InterruptedException {
 
-        String movieURL = "https://www.omdbapi.com/?apikey="
-                + apiKey
-                + "&t="
-                + movieTitle.replace(" ", "%20");
+        String url = "https://www.omdbapi.com/?t="
+                + movieTitle.replace(" ", "+")
+                + "&apikey=" + apiKey;
 
         HttpClient client = HttpClient.newHttpClient();
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(movieURL))
+                .uri(URI.create(url))
                 .build();
 
         HttpResponse<String> response = client.send(
@@ -30,5 +27,58 @@ public class MovieRatingAPI {
         );
 
         return response.body();
+    }
+
+    // Gets the IMDb rating from the movie information
+    public String getIMDbRating(String movieTitle) throws Exception {
+
+        String movie = getMovie(movieTitle);
+
+        int ratingStart = movie.indexOf("\"imdbRating\":\"");
+
+        if (ratingStart == -1) {
+            return "N/A";
+        }
+
+        ratingStart += 14;
+        int ratingEnd = movie.indexOf("\"", ratingStart);
+
+        return movie.substring(ratingStart, ratingEnd);
+    }
+    // Gets the Rotten Tomatoes rating from the movie information
+    public String getRottenTomatoesRating(String movieTitle) throws Exception {
+
+        String movie = getMovie(movieTitle);
+
+        int sourceStart = movie.indexOf("\"Source\":\"Rotten Tomatoes\"");
+
+        if (sourceStart == -1) {
+            return "N/A";
+        }
+
+        int valueStart = movie.indexOf("\"Value\":\"", sourceStart);
+        valueStart += 9;
+
+        int valueEnd = movie.indexOf("\"", valueStart);
+
+        return movie.substring(valueStart, valueEnd);
+    }
+    // Gets the Metacritic rating from the movie information
+    public String getMetacriticRating(String movieTitle) throws Exception {
+
+        String movie = getMovie(movieTitle);
+
+        int sourceStart = movie.indexOf("\"Source\":\"Metacritic\"");
+
+        if (sourceStart == -1) {
+            return "N/A";
+        }
+
+        int valueStart = movie.indexOf("\"Value\":\"", sourceStart);
+        valueStart += 9;
+
+        int valueEnd = movie.indexOf("\"", valueStart);
+
+        return movie.substring(valueStart, valueEnd);
     }
 }
