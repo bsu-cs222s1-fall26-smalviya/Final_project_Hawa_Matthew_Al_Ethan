@@ -1,3 +1,4 @@
+package edu.bsu.cs222;
 
 import org.junit.jupiter.api.Test;
 import java.util.List;
@@ -43,9 +44,7 @@ public class AverageRatingCalculatorTest {
     public void testEmptyRatings() {
         AverageRatingCalculator calculator = new AverageRatingCalculator();
 
-        assertThrows(IllegalArgumentException.class, () -> {
-            calculator.calculateAverage(List.of());
-        });
+        assertThrows(IllegalArgumentException.class, () -> calculator.calculateAverage(List.of()));
     }
 
     // Tests the average rating using movie data from the API
