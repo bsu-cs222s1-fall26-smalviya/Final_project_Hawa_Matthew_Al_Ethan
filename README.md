@@ -10,7 +10,7 @@ Movie Finder is an app that allows users to search for movies and see ratings fr
 # How to Run
 1. Open the project in IntelliJ IDEA.
 2. Let Gradle finish loading.
-3. Run the main class to start the app.
+3. Type ./gradlew run in the terminal and press enter.
 
 # Testing
 We used JUnit to test our code. All tests passed.
