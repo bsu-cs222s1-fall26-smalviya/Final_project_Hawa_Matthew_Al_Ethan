@@ -14,6 +14,7 @@ public class MovieResult {
         this.averageRating = new SimpleStringProperty(averageRating);
     }
 
+    @SuppressWarnings("unused")
     public String getMovieName(){
 
         return movieName.get();
@@ -24,6 +25,7 @@ public class MovieResult {
         return movieName;
     }
 
+    @SuppressWarnings("unused")
     public String getAverageRating() {
 
         return averageRating.get();

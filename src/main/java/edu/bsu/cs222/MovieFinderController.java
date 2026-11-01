@@ -56,6 +56,13 @@ public class MovieFinderController  {
         ratingTask.setOnSucceeded(event -> {
             double averageScore = ratingTask.getValue();
 
+            if (Double.isNaN(averageScore) || averageScore < 0) {
+
+                statusLabel.setText("Movie not found: '" + cleanMovieName + ";");
+                searchField.clear();
+                return;
+            }
+
             String formattedRating = String.format("%.1f / 100", averageScore);
 
             searchHistory.add(new MovieResult(cleanMovieName, formattedRating));
@@ -71,6 +78,13 @@ public class MovieFinderController  {
             searchField.clear();
             statusLabel.setText("Successfully loaded: " + cleanMovieName);
         });
+
+        ratingTask.setOnFailed(event ->{
+
+            statusLabel.setText("Movie not found or error fetching data.");
+            searchField.clear();
+        });
+
         return ratingTask;
     }
 
