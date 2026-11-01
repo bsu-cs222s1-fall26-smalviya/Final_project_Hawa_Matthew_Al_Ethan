@@ -11,7 +11,11 @@ public class MovieRatingAPI {
     // Gets movie information from the OMDb API
     public String getMovie(String movieTitle) throws IOException, InterruptedException {
 
-        String apiKey = "8e8f2632";
+        String apiKey = System.getenv("OMDB_API_KEY");
+
+        if (apiKey == null || apiKey.isBlank()) {
+            throw new IllegalStateException("OMDB_API_KEY is not configured");
+        }
         String url = "https://www.omdbapi.com/?t="
                 + movieTitle.replace(" ", "+")
                 + "&apikey=" + apiKey;
