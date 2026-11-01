@@ -1,9 +1,11 @@
-
 plugins {
     id("java")
+
+    id ("application")
+
     kotlin("jvm") version "1.9.22"
-    id("org.openjfx.javafxplugin") version "0.1.0"
-    application
+
+    id("org.openjfx.javafxplugin") version "0.0.13"
 }
 
 group = "org.example"
@@ -28,5 +30,6 @@ tasks.test {
 }
 
 application {
-    mainClass.set("edu.bsu.cs222.Main")
+    mainClass = "edu.bsu.cs222.Main"
 }
+

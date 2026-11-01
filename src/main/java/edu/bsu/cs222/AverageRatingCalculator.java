@@ -68,5 +68,4 @@ public class AverageRatingCalculator {
 
         return calculateAverage(ratings);
     }
-
 }
