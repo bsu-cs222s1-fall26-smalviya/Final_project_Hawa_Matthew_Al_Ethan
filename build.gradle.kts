@@ -1,9 +1,9 @@
+
 plugins {
     id("java")
-
     kotlin("jvm") version "1.9.22"
-
     id("org.openjfx.javafxplugin") version "0.1.0"
+    application
 }
 
 group = "org.example"
@@ -27,3 +27,6 @@ tasks.test {
     useJUnitPlatform()
 }
 
+application {
+    mainClass.set("edu.bsu.cs222.Main")
+}
