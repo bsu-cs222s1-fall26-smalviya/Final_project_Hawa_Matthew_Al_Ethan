@@ -1,9 +1,99 @@
 package edu.bsu.cs222;
 
-import javafx.fxml.Initializable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
+import org.jetbrains.annotations.NotNull;
 
-public class MovieFinderController implements Initializable {
+public class MovieFinderController  {
 
+    @FXML private TextField searchField;
+    @FXML private TableView<MovieResult> movieTable;
+    @FXML private Button resetButton;
+    @FXML private TableColumn<MovieResult, String> movieNameColumn;
+    @FXML private TableColumn<MovieResult, String> averageRatingColumn;
+    @FXML private Label statusLabel;
 
+    private final ObservableList<MovieResult> searchHistory = FXCollections.observableArrayList();
 
+    private final MovieSearchService searchService = new MovieSearchService();
+    private final AverageRatingCalculator ratingCalculator = new AverageRatingCalculator();
+
+    @FXML
+    private void handleSearch() {
+        String rawInput = searchField.getText();
+
+        try {
+
+            searchService.prepareSearch(rawInput);
+            String cleanMovieName = rawInput.trim();
+
+            statusLabel.setText("Fetching ratings for '" + cleanMovieName + "'...");
+
+            //Run rating calculation in background to prevent UI freezing
+            Task<Double> ratingTask = createRatingTask(cleanMovieName);
+
+            new Thread(ratingTask).start();
+
+        } catch (IllegalArgumentException e) {
+            // Catches empty input errors from MovieSearchService
+            statusLabel.setText(e.getMessage());
+        }
+    }
+
+    @NotNull
+    private Task<Double> createRatingTask(String cleanMovieName) {
+        Task<Double> ratingTask = new Task<>() {
+            @Override
+            protected Double call() throws Exception {
+
+                return ratingCalculator.getMovieAverage(cleanMovieName);
+            }
+        };
+
+        ratingTask.setOnSucceeded(event -> {
+            double averageScore = ratingTask.getValue();
+
+            String formattedRating = String.format("%.1f / 100", averageScore);
+
+            searchHistory.add(new MovieResult(cleanMovieName, formattedRating));
+
+            if (!movieTable.isVisible()) {
+                movieTable.setVisible(true);
+                movieTable.setManaged(true);
+
+                resetButton.setVisible(true);
+                resetButton.setManaged(true);
+            }
+
+            searchField.clear();
+            statusLabel.setText("Successfully loaded: " + cleanMovieName);
+        });
+        return ratingTask;
+    }
+
+    @FXML
+    private void handleReset() {
+        searchHistory.clear();
+        movieTable.setVisible(false);
+        movieTable.setManaged(false);
+
+        resetButton.setVisible(false);
+        resetButton.setManaged(false);
+
+        statusLabel.setText("Table reset.");
+    }
+
+    @FXML
+    public void initialize() {
+
+        movieNameColumn.setCellValueFactory(cellData -> cellData.getValue().movieNameProperty());
+        averageRatingColumn.setCellValueFactory(cellData -> cellData.getValue().averageRatingProperty());
+
+        movieTable.setItems(searchHistory);
+
+        movieTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
+    }
 }
