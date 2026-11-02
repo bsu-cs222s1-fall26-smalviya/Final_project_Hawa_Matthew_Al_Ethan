@@ -23,6 +23,9 @@ javafx {
 dependencies {
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
+
+    testImplementation("org.testfx:testfx-core:4.0.16-alpha")
+    testImplementation("org.testfx:testfx-junit5:4.0.16-alpha")
 }
 
 tasks.test {
