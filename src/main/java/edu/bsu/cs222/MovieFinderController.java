@@ -14,6 +14,7 @@ public class MovieFinderController  {
     @FXML private Button resetButton;
     @FXML private TableColumn<MovieResult, String> movieNameColumn;
     @FXML private TableColumn<MovieResult, String> averageRatingColumn;
+    @FXML private TableColumn<MovieResult, Void> moreColumn;
     @FXML private Label statusLabel;
 
     private final ObservableList<MovieResult> searchHistory = FXCollections.observableArrayList();
@@ -103,11 +104,38 @@ public class MovieFinderController  {
     @FXML
     public void initialize() {
 
-        movieNameColumn.setCellValueFactory(cellData -> cellData.getValue().movieNameProperty());
-        averageRatingColumn.setCellValueFactory(cellData -> cellData.getValue().averageRatingProperty());
+        movieNameColumn.setCellValueFactory(cellData ->
+                cellData.getValue().movieNameProperty());
+
+        averageRatingColumn.setCellValueFactory(cellData ->
+                cellData.getValue().averageRatingProperty());
+
+        moreColumn.setCellFactory(column -> new TableCell<>() {
+
+            private final Button moreButton = new Button("More");
+
+            {
+                moreButton.setOnAction(event -> {
+                    MovieResult movie = getTableView().getItems().get(getIndex());
+                    showMovieRatings(movie);
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(moreButton);
+                }
+            }
+        });
 
         movieTable.setItems(searchHistory);
 
-        movieTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
+        movieTable.setColumnResizePolicy(
+                TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
     }
 }
