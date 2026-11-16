@@ -117,7 +117,9 @@ public class MovieFinderController  {
             {
                 moreButton.setOnAction(event -> {
                     MovieResult movie = getTableView().getItems().get(getIndex());
-                    showMovieRatings(movie);
+
+                    MovieDetailsView detailsView = new MovieDetailsView();
+                    detailsView.show(movie.movieNameProperty().get());
                 });
             }
 
