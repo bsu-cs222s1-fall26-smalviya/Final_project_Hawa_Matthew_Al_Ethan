@@ -85,7 +85,11 @@ public class MovieSearchServiceTest {
         assertEquals("Black+Panther",
                 search.prepareSearch("Black\tPanther"));
     }
-
+    @Test
+    void testMultipleSpacesBetweenWords() {
+        assertEquals("The+Dark+Knight",
+                search.prepareSearch("The    Dark    Knight"));
+    }
 }
 
 
