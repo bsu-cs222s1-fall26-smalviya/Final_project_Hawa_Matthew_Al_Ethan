@@ -24,4 +24,8 @@ public String validateMovieTitle(String movieTitle) {
 
     return movieTitle.trim().replaceAll("\\s+", " ");
 }
+    public String normalizeMovieTitle(String movieTitle) {
+        return validateMovieTitle(movieTitle)
+                .toLowerCase(java.util.Locale.ROOT);
+    }
 }

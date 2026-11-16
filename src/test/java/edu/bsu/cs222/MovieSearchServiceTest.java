@@ -85,15 +85,24 @@ public class MovieSearchServiceTest {
         assertEquals("Black+Panther",
                 search.prepareSearch("Black\tPanther"));
     }
+
     @Test
     void testMultipleSpacesBetweenWords() {
         assertEquals("The+Dark+Knight",
                 search.prepareSearch("The    Dark    Knight"));
     }
+
     @Test
     void testTabsOnlyMovieTitle() {
         assertThrows(IllegalArgumentException.class,
                 () -> search.prepareSearch("\t\t\t"));
-    }}
+    }
+    @Test
+    void testNormalizeMovieTitleIgnoresCase() {
+        assertEquals("the dark knight",
+                search.normalizeMovieTitle("THE DARK KNIGHT"));
+    }
+}
+
 
 
