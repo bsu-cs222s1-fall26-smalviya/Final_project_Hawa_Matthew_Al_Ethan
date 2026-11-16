@@ -35,5 +35,4 @@ public class MovieResult {
 
         return averageRating;
     }
-
 }
