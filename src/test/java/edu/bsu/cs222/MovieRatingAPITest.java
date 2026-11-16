@@ -70,5 +70,15 @@ public class MovieRatingAPITest {
         assertEquals("N/A", rating);
     }
 
+    @Test
+    public void handlesMissingMetacriticRating() throws Exception {
+        MovieRatingAPI api = new MovieRatingAPI();
+
+        String rating = api.getMetacriticRating("ThisMovieDoesNotExist123456");
+
+        assertEquals("N/A", rating);
+    }
+
+
 
 }
