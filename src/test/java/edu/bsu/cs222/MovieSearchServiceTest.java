@@ -90,6 +90,10 @@ public class MovieSearchServiceTest {
         assertEquals("The+Dark+Knight",
                 search.prepareSearch("The    Dark    Knight"));
     }
-}
+    @Test
+    void testTabsOnlyMovieTitle() {
+        assertThrows(IllegalArgumentException.class,
+                () -> search.prepareSearch("\t\t\t"));
+    }}
 
 
