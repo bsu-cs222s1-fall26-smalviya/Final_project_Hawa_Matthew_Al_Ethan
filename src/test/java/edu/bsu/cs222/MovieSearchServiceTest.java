@@ -54,4 +54,32 @@ public class MovieSearchServiceTest {
         assertEquals("avatar",
                 search.prepareSearch("avatar"));
     }
+
+    @Test
+    void testValidateMovieTitle() {
+        MovieSearchService search = new MovieSearchService();
+
+        String result = search.validateMovieTitle("  Titanic  ");
+
+        assertEquals("Titanic", result);
+    }
+
+    @Test
+    void testValidateEmptyMovieTitle() {
+        MovieSearchService search = new MovieSearchService();
+
+        assertThrows(IllegalArgumentException.class,
+                () -> search.validateMovieTitle(""));
+    }
+
+    @Test
+    void testValidateNullMovieTitle() {
+        MovieSearchService search = new MovieSearchService();
+
+        assertThrows(IllegalArgumentException.class,
+                () -> search.validateMovieTitle(null));
+    }
+
 }
+
+

@@ -19,4 +19,13 @@ public class MovieSearchService {
                 title, StandardCharsets.UTF_8
         );
     }
+public String validateMovieTitle(String movieTitle) {
+            if (movieTitle == null || movieTitle.trim().isEmpty()) {
+                throw new IllegalArgumentException(
+                        "Please enter a movie title."
+                );
+            }
+
+            return movieTitle.trim();
+}
 }
