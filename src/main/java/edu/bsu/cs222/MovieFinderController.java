@@ -16,6 +16,7 @@ public class MovieFinderController  {
     @FXML private TableColumn<MovieResult, String> averageRatingColumn;
     @FXML private TableColumn<MovieResult, Void> moreColumn;
     @FXML private Label statusLabel;
+    @FXML private TableColumn<MovieResult, String> movieDescriptionColumn;
 
     private final ObservableList<MovieResult> searchHistory = FXCollections.observableArrayList();
 
