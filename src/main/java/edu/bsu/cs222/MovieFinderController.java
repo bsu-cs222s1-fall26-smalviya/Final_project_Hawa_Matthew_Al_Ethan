@@ -14,6 +14,7 @@ public class MovieFinderController  {
     @FXML private Button resetButton;
     @FXML private TableColumn<MovieResult, String> movieNameColumn;
     @FXML private TableColumn<MovieResult, String> averageRatingColumn;
+    @FXML private TableColumn<MovieResult, Void> moreColumn;
     @FXML private Label statusLabel;
 
     private final ObservableList<MovieResult> searchHistory = FXCollections.observableArrayList();
@@ -27,8 +28,7 @@ public class MovieFinderController  {
 
         try {
 
-            searchService.prepareSearch(rawInput);
-            String cleanMovieName = rawInput.trim();
+            String cleanMovieName = searchService.validateMovieTitle(rawInput);
 
             statusLabel.setText("Fetching ratings for '" + cleanMovieName + "'...");
 
@@ -103,11 +103,54 @@ public class MovieFinderController  {
     @FXML
     public void initialize() {
 
-        movieNameColumn.setCellValueFactory(cellData -> cellData.getValue().movieNameProperty());
-        averageRatingColumn.setCellValueFactory(cellData -> cellData.getValue().averageRatingProperty());
+        movieNameColumn.setCellValueFactory(cellData ->
+                cellData.getValue().movieNameProperty());
+
+        averageRatingColumn.setCellValueFactory(cellData ->
+                cellData.getValue().averageRatingProperty());
+
+        moreColumn.setCellFactory(column -> new TableCell<>() {
+
+            private final Button moreButton = new Button("More");
+
+            {
+                moreButton.setOnAction(event -> {
+                    MovieResult movie = getTableView().getItems().get(getIndex());
+
+                    MovieDetailsView detailsView = new MovieDetailsView();
+                    detailsView.show(movie.movieNameProperty().get());
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(moreButton);
+                }
+            }
+        });
 
         movieTable.setItems(searchHistory);
 
-        movieTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
+        movieTable.setColumnResizePolicy(
+                TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
     }
+
+    private void showMovieRatings(MovieResult movie) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+        alert.setTitle("Movie Information");
+        alert.setHeaderText(movie.getMovieName());
+
+        alert.setContentText(
+                "Average Rating: " + movie.getAverageRating()
+        );
+
+        alert.showAndWait();
+    }
+
 }

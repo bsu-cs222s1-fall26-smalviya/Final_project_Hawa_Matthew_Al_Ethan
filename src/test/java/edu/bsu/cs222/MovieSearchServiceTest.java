@@ -54,4 +54,55 @@ public class MovieSearchServiceTest {
         assertEquals("avatar",
                 search.prepareSearch("avatar"));
     }
+
+    @Test
+    void testValidateMovieTitle() {
+        MovieSearchService search = new MovieSearchService();
+
+        String result = search.validateMovieTitle("  Titanic  ");
+
+        assertEquals("Titanic", result);
+    }
+
+    @Test
+    void testValidateEmptyMovieTitle() {
+        MovieSearchService search = new MovieSearchService();
+
+        assertThrows(IllegalArgumentException.class,
+                () -> search.validateMovieTitle(""));
+    }
+
+    @Test
+    void testValidateNullMovieTitle() {
+        MovieSearchService search = new MovieSearchService();
+
+        assertThrows(IllegalArgumentException.class,
+                () -> search.validateMovieTitle(null));
+    }
+
+    @Test
+    void testMovieTitleWithTab() {
+        assertEquals("Black+Panther",
+                search.prepareSearch("Black\tPanther"));
+    }
+
+    @Test
+    void testMultipleSpacesBetweenWords() {
+        assertEquals("The+Dark+Knight",
+                search.prepareSearch("The    Dark    Knight"));
+    }
+
+    @Test
+    void testTabsOnlyMovieTitle() {
+        assertThrows(IllegalArgumentException.class,
+                () -> search.prepareSearch("\t\t\t"));
+    }
+    @Test
+    void testNormalizeMovieTitleIgnoresCase() {
+        assertEquals("the dark knight",
+                search.normalizeMovieTitle("THE DARK KNIGHT"));
+    }
 }
+
+
+
