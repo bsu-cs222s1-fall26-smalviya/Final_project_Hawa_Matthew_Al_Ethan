@@ -28,8 +28,7 @@ public class MovieFinderController  {
 
         try {
 
-            searchService.prepareSearch(rawInput);
-            String cleanMovieName = rawInput.trim();
+            String cleanMovieName = searchService.validateMovieTitle(rawInput);
 
             statusLabel.setText("Fetching ratings for '" + cleanMovieName + "'...");
 
@@ -140,4 +139,18 @@ public class MovieFinderController  {
         movieTable.setColumnResizePolicy(
                 TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
     }
+
+    private void showMovieRatings(MovieResult movie) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+        alert.setTitle("Movie Information");
+        alert.setHeaderText(movie.getMovieName());
+
+        alert.setContentText(
+                "Average Rating: " + movie.getAverageRating()
+        );
+
+        alert.showAndWait();
+    }
+
 }
