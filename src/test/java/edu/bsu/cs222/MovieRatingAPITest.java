@@ -61,4 +61,14 @@ public class MovieRatingAPITest {
         assertEquals("N/A", rating);
     }
 
+    @Test
+    public void handlesMissingRottenTomatoesRating() throws Exception {
+        MovieRatingAPI api = new MovieRatingAPI();
+
+        String rating = api.getRottenTomatoesRating("ThisMovieDoesNotExist123456");
+
+        assertEquals("N/A", rating);
+    }
+
+
 }
