@@ -22,6 +22,6 @@ public String validateMovieTitle(String movieTitle) {
                 );
             }
 
-            return movieTitle.trim();
+    return movieTitle.trim().replaceAll("\\s+", " ");
 }
 }

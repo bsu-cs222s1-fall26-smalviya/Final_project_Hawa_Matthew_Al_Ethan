@@ -80,6 +80,12 @@ public class MovieSearchServiceTest {
                 () -> search.validateMovieTitle(null));
     }
 
+    @Test
+    void testMovieTitleWithTab() {
+        assertEquals("Black+Panther",
+                search.prepareSearch("Black\tPanther"));
+    }
+
 }
 
 
