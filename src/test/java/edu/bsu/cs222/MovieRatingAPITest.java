@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MovieRatingAPITest {
 
@@ -50,4 +51,14 @@ public class MovieRatingAPITest {
         assertTrue(rating.matches("\\d+/100"));
 
     }
+
+    @Test
+    public void handlesMissingRatings() throws Exception {
+        MovieRatingAPI api = new MovieRatingAPI();
+
+        String rating = api.getIMDbRating("ThisMovieDoesNotExist123456");
+
+        assertEquals("N/A", rating);
+    }
+
 }
