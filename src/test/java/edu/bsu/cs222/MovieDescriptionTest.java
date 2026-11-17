@@ -1,3 +1,4 @@
+
 package edu.bsu.cs222;
 
 import org.junit.jupiter.api.Test;
@@ -6,36 +7,23 @@ import static org.junit.jupiter.api.Assertions.*;
 public class MovieDescriptionTest {
 
     @Test
-    public void testMovieTitle() {
-        MovieDescription movie = new MovieDescription(
-                "Shrek", "An ogre goes on an adventure.");
+    public void testMovieDescription() throws Exception {
+        MovieDescriptionAPI api = new MovieDescriptionAPI();
 
-        assertEquals("Shrek", movie.getTitle());
+        String description = api.gatherMovieDescription("Shrek");
+
+        assertNotNull(description);
+        assertFalse(description.isBlank());
+        assertNotEquals("N/A", description);
     }
 
     @Test
-    public void testMovieDescription() {
-        MovieDescription movie = new MovieDescription(
-                "Shrek", "An ogre goes on an adventure.");
+    public void testMissingMovieDescription() throws Exception {
+        MovieDescriptionAPI api = new MovieDescriptionAPI();
 
-        assertEquals("An ogre goes on an adventure.",
-                movie.getDescription());
-    }
+        String description = api.gatherMovieDescription(
+                "ThisMovieDoesNotExist123456");
 
-    @Test
-    public void testDescriptionAvailable() {
-        MovieDescription movie = new MovieDescription(
-                "Shrek", "An ogre goes on an adventure.");
-
-        assertTrue(movie.hasDescription());
-    }
-
-    @Test
-    public void testMissingDescription() {
-        MovieDescription movie = new MovieDescription(
-                "Shrek", "N/A");
-
-        assertFalse(movie.hasDescription());
+        assertEquals("N/A", description);
     }
 }
-
