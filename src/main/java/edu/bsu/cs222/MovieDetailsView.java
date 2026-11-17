@@ -54,13 +54,9 @@ public class MovieDetailsView {
             }
         };
 
-        ratingTask.setOnSucceeded(event -> {
-            ratingsLabel.setText(ratingTask.getValue());
-        });
+        ratingTask.setOnSucceeded(event -> ratingsLabel.setText(ratingTask.getValue()));
 
-        ratingTask.setOnFailed(event -> {
-            ratingsLabel.setText("Could not load movie ratings.");
-        });
+        ratingTask.setOnFailed(event -> ratingsLabel.setText("Could not load movie ratings."));
 
         Thread thread = new Thread(ratingTask);
         thread.setDaemon(true);

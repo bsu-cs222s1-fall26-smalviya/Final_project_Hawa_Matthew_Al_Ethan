@@ -9,16 +9,24 @@ import org.jetbrains.annotations.NotNull;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
 
-public class MovieFinderController  {
+public class MovieFinderController {
 
-    @FXML private TextField searchField;
-    @FXML private TableView<MovieResult> movieTable;
-    @FXML private Button resetButton;
-    @FXML private TableColumn<MovieResult, String> movieNameColumn;
-    @FXML private TableColumn<MovieResult, String> averageRatingColumn;
-    @FXML private TableColumn<MovieResult, Void> moreColumn;
-    @FXML private Label statusLabel;
-    @FXML private TableColumn<MovieResult, String> movieDescriptionColumn;
+    @FXML
+    private TextField searchField;
+    @FXML
+    private TableView<MovieResult> movieTable;
+    @FXML
+    private Button resetButton;
+    @FXML
+    private TableColumn<MovieResult, String> movieNameColumn;
+    @FXML
+    private TableColumn<MovieResult, String> averageRatingColumn;
+    @FXML
+    private TableColumn<MovieResult, Void> moreColumn;
+    @FXML
+    private Label statusLabel;
+    @FXML
+    private TableColumn<MovieResult, String> movieDescriptionColumn;
 
     private final ObservableList<MovieResult> searchHistory = FXCollections.observableArrayList();
 
@@ -90,7 +98,7 @@ public class MovieFinderController  {
             statusLabel.setText("Successfully loaded: " + cleanMovieName);
         });
 
-        ratingTask.setOnFailed(event ->{
+        ratingTask.setOnFailed(event -> {
 
             statusLabel.setText("Movie not found or error fetching data.");
             searchField.clear();
@@ -174,18 +182,5 @@ public class MovieFinderController  {
 
         movieTable.setColumnResizePolicy(
                 TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
-    }
-
-    private void showMovieRatings(MovieResult movie) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-
-        alert.setTitle("Movie Information");
-        alert.setHeaderText(movie.getMovieName());
-
-        alert.setContentText(
-                "Average Rating: " + movie.getAverageRating()
-        );
-
-        alert.showAndWait();
     }
 }
