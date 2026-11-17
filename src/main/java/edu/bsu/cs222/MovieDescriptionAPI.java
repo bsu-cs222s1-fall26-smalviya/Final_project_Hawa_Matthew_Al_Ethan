@@ -19,8 +19,6 @@ public class MovieDescriptionAPI {
 
         int descriptionEnd = movieInformation.indexOf("\"", descriptionStart);
 
-        //Returns movie description
         return movieInformation.substring(descriptionStart, descriptionEnd);
-
     }
 }

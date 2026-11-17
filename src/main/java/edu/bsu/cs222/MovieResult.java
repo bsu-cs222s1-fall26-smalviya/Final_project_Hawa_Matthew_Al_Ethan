@@ -7,11 +7,13 @@ public class MovieResult {
 
     private final StringProperty movieName;
     private final StringProperty averageRating;
+    private final StringProperty movieDescription;
 
-    public MovieResult(String movieName, String averageRating) {
+    public MovieResult(String movieName, String averageRating, String movieDescription) {
 
         this.movieName = new SimpleStringProperty(movieName);
         this.averageRating = new SimpleStringProperty(averageRating);
+        this.movieDescription = new SimpleStringProperty(movieDescription);
     }
 
     @SuppressWarnings("unused")
@@ -35,4 +37,15 @@ public class MovieResult {
 
         return averageRating;
     }
+
+    public String getMovieDescription() {
+
+        return movieDescription.get();
+    }
+
+    public StringProperty movieDescriptionProperty() {
+
+        return movieDescription;
+    }
 }
+
