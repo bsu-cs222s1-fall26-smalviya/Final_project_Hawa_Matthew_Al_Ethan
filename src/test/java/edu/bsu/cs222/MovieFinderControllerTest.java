@@ -11,6 +11,8 @@ import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 import org.testfx.matcher.control.LabeledMatchers;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Button;
 
 import java.net.URL;
 import java.util.Objects;
@@ -35,18 +37,33 @@ public class MovieFinderControllerTest {
     @Test
     public void testEmptySearchDisplaysError(FxRobot robot) {
 
-        robot.clickOn(".button");
+        robot.clickOn("#searchButton");
 
         FxAssert.verifyThat("#statusLabel", LabeledMatchers.hasText("Please enter a movie title."));
     }
 
+
     @Test
     public void testUserTypesMovieAndSearches(FxRobot robot) {
+        robot.clickOn("#searchButton");
+        robot.sleep(1000);
 
-        robot.clickOn("#searchField");
-        robot.write("Inception");
-        robot.clickOn(".button");
+        robot.interact(() -> {
+            TextField searchField = robot.lookup("#searchField")
+                    .queryAs(TextField.class);
+            searchField.setText("Inception");
+        });
 
-        FxAssert.verifyThat("#statusLabel", LabeledMatchers.hasText("Fetching ratings for 'Inception'..."));
+        robot.interact(() -> {
+            Button searchButton = robot.lookup("#searchButton")
+                    .queryAs(Button.class);
+            searchButton.fire();
+        });
+
+        FxAssert.verifyThat(
+                "#statusLabel",
+                LabeledMatchers.hasText("Fetching ratings for 'Inception'...")
+        );
     }
+
 }
