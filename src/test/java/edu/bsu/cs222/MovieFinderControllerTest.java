@@ -48,6 +48,9 @@ public class MovieFinderControllerTest {
     }
 
 
+    /// new changes///
+
+
 
     @Test
     public void testUserTypesMovieAndSearches(FxRobot robot) {
