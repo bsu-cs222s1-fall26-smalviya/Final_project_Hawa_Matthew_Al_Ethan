@@ -38,6 +38,7 @@ public class MovieResult {
         return averageRating;
     }
 
+    @SuppressWarnings("unused")
     public String getMovieDescription() {
 
         return movieDescription.get();
