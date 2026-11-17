@@ -34,13 +34,19 @@ public class MovieFinderControllerTest {
         stage.show();
     }
 
+
     @Test
     public void testEmptySearchDisplaysError(FxRobot robot) {
+        robot.interact(() -> {
+            Button searchButton = robot.lookup("#searchButton")
+                    .queryAs(Button.class);
+            searchButton.fire();
+        });
 
-        robot.clickOn("#searchButton");
-
-        FxAssert.verifyThat("#statusLabel", LabeledMatchers.hasText("Please enter a movie title."));
+        FxAssert.verifyThat("#statusLabel",
+                LabeledMatchers.hasText("Please enter a movie title."));
     }
+
 
 
     @Test
