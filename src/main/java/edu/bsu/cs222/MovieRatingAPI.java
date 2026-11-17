@@ -14,6 +14,7 @@ public class MovieRatingAPI {
         String apiKey = "8e8f2632";
         String url = "https://www.omdbapi.com/?t="
                 + movieTitle.replace(" ", "+")
+                +"&plot=full"
                 + "&apikey=" + apiKey;
 
         HttpResponse<String> response;

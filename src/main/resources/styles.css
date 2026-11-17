@@ -44,6 +44,10 @@
     -fx-background-color: #5C4B99;
 }
 
+.table-row-cell {
+    -fx-cell-size: 250px;
+}
+
 .button {
     -fx-background-color: #4A3B76;
     -fx-text-fill: white;
@@ -54,5 +58,7 @@
 .button:hover {
     -fx-background-color: #5C4B99;
 }
+
+
 
 

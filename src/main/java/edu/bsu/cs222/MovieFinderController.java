@@ -6,6 +6,8 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.jetbrains.annotations.NotNull;
+import javafx.scene.layout.Region;
+import javafx.scene.text.Text;
 
 public class MovieFinderController  {
 
@@ -21,6 +23,7 @@ public class MovieFinderController  {
     private final ObservableList<MovieResult> searchHistory = FXCollections.observableArrayList();
 
     private final MovieSearchService searchService = new MovieSearchService();
+    private final MovieDescriptionAPI descriptionExtractor = new MovieDescriptionAPI();
     private final AverageRatingCalculator ratingCalculator = new AverageRatingCalculator();
 
     @FXML
@@ -66,7 +69,14 @@ public class MovieFinderController  {
 
             String formattedRating = String.format("%.1f / 100", averageScore);
 
-            searchHistory.add(new MovieResult(cleanMovieName, formattedRating));
+            String formattedDescription;
+            try {
+                formattedDescription = descriptionExtractor.gatherMovieDescription(cleanMovieName);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
+            searchHistory.add(new MovieResult(cleanMovieName, formattedRating, formattedDescription));
 
             if (!movieTable.isVisible()) {
                 movieTable.setVisible(true);
@@ -110,6 +120,28 @@ public class MovieFinderController  {
         averageRatingColumn.setCellValueFactory(cellData ->
                 cellData.getValue().averageRatingProperty());
 
+        movieDescriptionColumn.setCellValueFactory(cellData ->
+                cellData.getValue().movieDescriptionProperty());
+
+        //Custom cell factory that handles text wrapping and formatting for the description
+        movieDescriptionColumn.setCellFactory(col -> {
+            TableCell<MovieResult, String> cell = new TableCell<>();
+            Text text = new Text();
+
+            text.setStyle("-fx-fill: white; -fx-font-size: 13px;");
+            text.wrappingWidthProperty().bind(col.widthProperty().subtract(15));
+
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            cell.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+
+            cell.itemProperty().addListener((observable, oldValue, newValue) -> text.setText(newValue));
+
+            return cell;
+
+        });
+
+
         moreColumn.setCellFactory(column -> new TableCell<>() {
 
             private final Button moreButton = new Button("More");
@@ -137,6 +169,9 @@ public class MovieFinderController  {
 
         movieTable.setItems(searchHistory);
 
+        //Tells the TableView to dynamically wrap each row to the necessary height
+        movieTable.setFixedCellSize(Region.USE_COMPUTED_SIZE);
+
         movieTable.setColumnResizePolicy(
                 TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
     }
@@ -153,5 +188,4 @@ public class MovieFinderController  {
 
         alert.showAndWait();
     }
-
 }
