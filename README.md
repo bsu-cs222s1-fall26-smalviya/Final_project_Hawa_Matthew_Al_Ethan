@@ -16,4 +16,5 @@ How to Run
 
 
 Testing
+
 We used JUnit and TestFX to test our code. All tests passed.
