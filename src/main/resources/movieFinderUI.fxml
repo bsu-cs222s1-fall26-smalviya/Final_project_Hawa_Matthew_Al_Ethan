@@ -37,7 +37,7 @@
             </VBox.margin>
             <TextField fx:id="searchField" onAction="#handleSearch" prefWidth="320.0" promptText="Enter movie name"
                        style="-fx-font-size: 14px; -fx-padding: 8px;"/>
-            <Button fx:id="searchButton" mnemonicParsing="false" onAction="#handleSearch"
+            <Button mnemonicParsing="false" onAction="#handleSearch"
                     style="-fx-font-size: 14px; -fx-padding: 8px 18px;" text="Search"/>
          </HBox>
       </VBox>

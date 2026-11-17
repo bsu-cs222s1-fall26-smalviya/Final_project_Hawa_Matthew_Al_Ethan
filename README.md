@@ -1,5 +1,5 @@
 # Movie Finder
-Movie Finder is an app that allows users to search for movies and see ratings from different websites. It also calculates the average rating to help users decide what to watch.
+Movie Finder is an app that allows users to search for movies and see ratings and descriptions from different websites. It also calculates the average rating to help users decide what to watch.
 
 Team Members
 - Hawa Umutoniwase
@@ -14,4 +14,4 @@ How to Run
 
 Testing
 
-We used JUnit to test our code. All tests passed.
+We used JUnit and TestFX to test our code. All tests passed.
