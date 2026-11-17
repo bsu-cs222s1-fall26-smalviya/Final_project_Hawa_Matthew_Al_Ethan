@@ -10,8 +10,10 @@ Team Members
 How to Run
 1. Open the project in IntelliJ IDEA.
 2. Let Gradle finish loading.
-3. Type ./gradlew run in the terminal and press enter.
+3. Open the Gradle panel on the right side.
+4. Go to Tasks, then Application, then go to Run.
+5. Double-click "run" to launch the application.
+
 
 Testing
-
 We used JUnit and TestFX to test our code. All tests passed.
